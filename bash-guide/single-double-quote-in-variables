@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+foo='hello     world'
+echo $foo # prints "hello world" ( get's rid of multiple spaces )
+echo "$foo" # retains the same number of spaces 
+# So, usually safe to use double quotes
+
+unset foo
+echo $foo # won't print anything, the variable has been unset
