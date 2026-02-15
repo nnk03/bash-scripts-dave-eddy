@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+name='asdf'
+number='123'
+system=$(uname)
+echo "Hello $name, your number is $number"
+
+echo "Your System is: $system"
