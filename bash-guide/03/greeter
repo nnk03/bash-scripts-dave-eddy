@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+greet() {
+	# name=$1; # `name` is technically global
+	local name=$1;
+	echo "hello $name from function"
+
+	return 0 # `return` keyword works only inside a function
+}
+
+# for name in "$@"; do
+# 	./hello "$name"
+# done
+
+for name in "$@"; do
+	greet "$name"
+done
+
+var=$(greet asdf)
+echo "var is $var"
+
+greet asdf
+echo $?

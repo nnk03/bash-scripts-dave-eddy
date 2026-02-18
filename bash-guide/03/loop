@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# for thing in foo bar baz bat; do
+# 	echo "thing is $thing"
+# done
+
+# for thing in "$1" "$2" "$3"; do
+# 	echo "thing is $thing"
+# done
+
+for thing in "$@"; do
+	echo "thing is $thing"
+done

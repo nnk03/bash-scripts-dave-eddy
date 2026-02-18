@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+a=2
+b=2
+
+if [[ $a == $b  ]]; then
+	echo "$a a and b are the same" # supports variable expansion
+	echo '$a a and b are the same' # doesn't support variable expansion
+	echo a    and b are the same # quick and dirty, trims whitespaces
+fi
+
+c=2
+d=3
+
+if ! [[ $c == $d  ]]; then
+	echo 'c and d are not the same'
+fi
+if [[ $c != $d  ]]; then
+	echo 'c and d are not the same'
+fi
+
+# [[ can check a bunch of things
+if [[ -f file.txt ]]; then
+	echo 'file.txt exists and is a file'
+fi
+
+# while [[ -f file.txt ]]; do
+# 	echo 'file.txt exists and is a file'
+# 	sleep 1
+# done
+#
+# echo 'file is gone'
+#
+# ## opposite of while loop -> until
+# until [[ -f file.txt ]]; do
+# 	echo 'file.txt not exists'
+# 	sleep 1
+# done
+
+echo 'file exists'
+
+if ls; then
+	echo 'if statement was true'
+else
+	echo 'if statement was true'
+fi
+
+
+if true; then
+	echo 'if statement was true'
+else
+	echo 'if statement was true'
+fi
+
+
+if false; then
+	echo 'if statement was true'
+else
+	echo 'if statement was true'
+fi
+
+[[ -f file.txt ]]
+echo $?
+! [[ -f file.txt ]]
+echo $?
+
+[[ -f file.txt ]] && echo it exists 
+
+# Stay away from the below 2 unless it is a POSIX or Bourne script ?
+# [ -f file.txt ]
+# test-f file.txt
