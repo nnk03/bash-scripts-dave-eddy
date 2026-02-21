@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# read foo
+# echo "you said $foo"
+
+# weirdness with read when used with backslashes
+# try giving hello \n world
+# ./read-input
+# hello \n world
+# you said hello n world
+#
+# So, safe to use with -r flag
+#
+# -r is like raw
+
+# read -r foo # default delimiter is new line
+# echo "you said $foo"
+# ./read-input
+# hello \n world
+# you said hello \n world
+
+# while read -r line; do
+# 	# we cannot technically have an empty while loop,
+# 	# it leads to a syntax error
+# 	# So, `:` or `true` can be placed inside the while loop
+# 	# to achieve the same effect
+# 	:
+#
+# 	echo "we read line : $line"
+# done
+#
+# # echo by default adds a new line at the end
+# # try `echo hello | xxd`
+# # to not add a new line, use `echo -n hello`
+# # So, the above while loop can fail if we try `echo -n hello | ./read-input`
+
+# we can do something like the below
+while read -r line || [[ -n $line ]] ; do
+	echo "we read line : $line"
+done
+
+# cat /usr/share/dict/words | ./read-input
+# The above is almost same as
+# ./read-input < /usr/share/dict/words
+#
+# and the above `< file-name` can be placed anywhere
+# < /usr/share/dict/words ./read-input
+# The above is also valid

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+s=$1
+
+case "$s" in 
+	dave)
+		echo "Hi dave" ;;
+	buddy)
+		echo "hi buddy"
+		;;
+	d* | b*)
+		echo "wildcard matched! hi $s"
+		;;
+	guy)
+		echo "hi guy"
+		;;
+	*)
+		echo "hi idk"
+		;;
+esac
+
+
+case "$s" in 
+	d*) echo 'matched d*';&
+	dave) echo 'matched dave';&
+	f*) echo 'matched f*';&
+	*) echo 'matched *';&
+esac
+
+case "$s" in 
+	d*) echo 'matched d*';;&
+	dave) echo 'matched dave';;&
+	f*) echo 'matched f*';;&
+	foo) echo 'matched foo';;&
+	*) echo 'matched *';;&
+esac

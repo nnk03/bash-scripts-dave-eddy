@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+
+array=(foo bar baz)
+echo "$array" # we will get only the first element of the array
+
+echo "${array}" # we will get only the first element of the array
+echo "0: ${array[0]}"
+echo "1: ${array[1]}"
+echo "2: ${array[2]}"
+echo "3: ${array[3]}" # empty string
+
+
+echo "-1: ${array[-1]}"
+echo "-3: ${array[-3]}"
+# echo "-4: ${array[-4]}" # runtime error ?
+#
+echo
+
+idx=2
+echo "idx: ${array[$idx]}"
+# the below is also is valid when key is numeric
+echo "idx: ${array[idx]}"
+echo
+
+echo "*: ${array[*]}"
+echo "@: ${array[@]}"
+# they seem like they do the same thing
+echo
+
+echo "loop over *"
+for item in "${array[*]}"; do
+	echo "item is $item"
+done
+# it looks like there is only one item in the array
+# item is foo bar baz
+
+for item in "${array[@]}"; do
+	echo "item is $item"
+done
+# this is correct
+
+# The * is when we want to stringify the elements of an array
+
+echo
+# Leaving the quotes is never right
+# This might seem working
+for item in ${array[@]}; do
+	echo "item is $item"
+done
+
+echo
+# and infact, the * version also seems to print the same thing
+for item in ${array[*]}; do
+	echo "item is $item"
+done
+
+array=(
+	foo
+	bar
+	baz
+	'hey      there friend'
+)
+echo
+for item in ${array[@]}; do
+	echo "item is $item"
+done
+
+echo
+# and infact, the * version also seems to print the same thing
+for item in ${array[*]}; do
+	echo "item is $item"
+done
+
+echo
+echo "the below is the correct version"
+for item in "${array[@]}"; do
+	echo "item is $item"
+done
+# this is correct
+
+declare -a array=(
+	foo
+	bar
+	baz
+)
+# nice thing about the above is we can first declare and then define
+declare -a first_array
+first_array=(
+	foo
+	bar
+	baz
+)
+echo
+second_array=$array # we only got the first item
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+second_array=${array[@]} # now it thinks it one big string
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+second_array="${array[@]}" # Still not enough
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+second_array=( "${array[@]}" ) # we are making a new array
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+second_array=( "${array[@]}" buddy guy ) # we can add new items too
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+second_array=( "${array[@]}" ) # we can add new items too
+second_array+=( buddy guy joe )
+for item in "${second_array[@]}"; do
+	echo "item is $item"
+done
+
+echo
+declare -p array
+
+echo
+array=([0]="foo" [1]="bar" [2]="baz" [45]="buddy")
+declare -p array
+
+echo "The length of the array is ${#array[@]}"

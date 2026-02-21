@@ -69,3 +69,5 @@ echo $?
 # Stay away from the below 2 unless it is a POSIX or Bourne script ?
 # [ -f file.txt ]
 # test-f file.txt
+# Less things can go wrong if we use double square bracket
+# stick with [[ ]] when in bash

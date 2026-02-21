@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+for thing in {a..f}; do # upto and including f
+	echo "thing is $thing"
+done
+
+for thing in {1..5}; do
+	echo "thing is $thing"
+done
+
+
+max=5
+for thing in {1..$max}; do # syntax kinda breaks here
+	echo "thing is $thing"
+done
+
+# double open parens indicates that we are in math mode
+for (( i = 0; i < max; i++ )); do
+	echo "thing is $i"
+done
