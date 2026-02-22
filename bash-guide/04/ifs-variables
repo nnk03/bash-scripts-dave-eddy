@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# IFS are related to arrays and plays a bigger role than in arrays
+# IFS are generally not modified that much in scripts
+
+array=(foo bar baz 'hello world')
+# what character is used to stringify
+echo "array is : ${array[*]}"
+
+# IFS by default is whitespace
+# The below is subshell and then wrapping the command ?
+(IFS="*"; echo "array when IFS=* is ${array[*]}")
+IFS=hello
+# uses 'h' alone, i.e the first character of hello
+echo "array when IFS=$IFS is ${array[*]}"
+unset IFS # reverts back to whitespace
+
+echo
+IFS=,
+echo "array when IFS=$IFS is ${array[*]}"
+unset IFS # reverts back to whitespace
+
+(
+	# local scope ?
+	echo
+	IFS=,
+	echo "array when IFS=$IFS is ${array[*]}"
+)
+
+echo
+IFS=,
+echo "array when IFS=$IFS is ${!array[*]}"
+unset IFS # reverts back to whitespace

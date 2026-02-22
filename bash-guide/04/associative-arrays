@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# kind of like hashMaps
+# associative arrays are available in bash 4.0 and higher
+# So, if we want the script to run in older system
+# should we use version detection ? ? NO!!!
+# we should use feature detection 
+
+# the below is compulsory for associative arrays
+declare -A arr
+echo $? # this will be 0 if the above was successful
+
+if ! declare -A arr; then
+	echo "Associative arrays unavailable" >&2
+	exit 1
+fi
+
+arr[foo]=1
+arr[bar]=2
+arr[baz]=3
+
+echo "$arr" # nothing prints out
+echo "${arr[foo]}"
+echo "${arr[bar]}"
+echo "${arr["baz"]}" # we can quote if required
+echo "${arr[fake]}" # will return empty
+
+# both will loop over the values, not the keys!
+echo "${arr[*]}"
+echo "${arr[@]}"
+
+echo "${!arr[*]}" # ! is the indirection operator ?
+# for array ! tells to act on the keys not the values
+
+echo
+for key in "${!arr[@]}"; do
+	echo "got $key"
+done
+
+echo
+for key in "${!arr[@]}"; do
+	# value=${arr[key]} # fine if key is numeric, but  for associative array, it
+	# 						# will think that we are indexing for the key : "key"
+	# below both are valid ?
+	value=${arr["$key"]}
+	echo "got $key = $value"
+	value=${arr[$key]}
+	echo "got $key = $value"
+done
