@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Use $(...) notation instead of legacy backticks `...`.
+# thing=`whoami`
+# echo "thing is $thing"
+
+# whoami
+# echo `whoami`
+# echo "hello:" `whoami`
+
+# echo `echo `whoami``
+
+# echo backticks
+# whoami
+# echo `whoami`
+# echo `echo \`whoami\``
+# echo `echo \`echo \\\`whoami\\\`\``
+
+
+# echo dollar-parens notation
+# whoami
+# echo $(whoami)
+# echo $(echo $(whoami))
+# echo $(echo $(echo $(whoami)))
+# echo "$(whoami)"
+# echo "$(echo "$(whoami)")"
+# echo "$(echo "$(echo "$(whoami)")")"
+
+i=5
+my-func() {
+	(( i += 1))
+	echo hi
+}
+
+thing=$(my-func) # this is running inside a subshell
+echo "thing is $thing"
+
+echo "i is $i" # i is will be 5
+my-func # functions can modify the global scope
+# hence, use `local` keyword
+echo "i is $i" # i is will be 6
+
+# new syntax
+# introduced in bash 5.3
+
+thing=${ my-func; } # but this doesn't run in a subshell,
+# the above runs in the main shell
+echo "thing is $thing"
+echo "i is $i" # i is will be 6

@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+thing=$(( 2 + 2 ))
+
+echo "thing is $thing"
+
+a=2
+b=3
+# $/${} is unnecessary on arithmetic variables.
+# echo $(( $a + $b ))
+echo $(( a + b ))
+# maybe `declare -i`, but stay away from them
+
+a=hello
+b=goodbye
+
+echo $(( a + b )) # when it can't parse a value to an int, it returns 0
+a=2
+b=3
+(( c = a + b ))
+echo "c is $c done"
+
+i=0
+((i++))
+echo "i = $i"
+((i *= 5))
+echo "i = $i"
+((i <<= 5))
+echo "i = $i"
+((i >>= 5))
+echo "i = $i"
+
+# Bash does not have ternaries normally but in the math mode it does
+
+a=2
+b=3
+(( max = a > b ? a : b ))
+echo "max is $max"
+max=$(( a > b ? a : b ))
+echo "max is $max"
+
+# set -e causes a lot of problems than its worth ?
+# (( max = a > b ? a : b )), this expression has a return code
+# i.e it can "fail"
+
+((2 + 2)) # exit code would be 0
+echo $?
+((2 - 2)) # exit code is 1
+echo $?
+
+a=10
+# 10 % 2 = 0 and 0 is considered a failure inside math expression
+if (( a % 2 )); then
+	echo number is odd
+else
+	echo number is even
+fi
+
+a=06
+echo "a is $a"
+echo $(( a ))
+
+# a=08
+# echo "a is $a"
+# echo $(( a )) # treated like octal when with leading 0
+
+a=010
+echo "$a"
+echo $(( a ))
+
+# way around this
+a=08
+echo "$a"
+# echo $(( 10#a )) # failure
+echo $(( 10#$a ))
+
+a=090
+echo "$a"
+echo $(( 11#$a ))

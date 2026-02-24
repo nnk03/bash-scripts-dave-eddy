@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# try this script with and without `set -e`
+
+# set -e
+
+i=0
+while (( i < 10 )); do
+	echo "i is $i"
+	((i++))
+done
