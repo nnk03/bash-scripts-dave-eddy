@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+# syntax for command substitution is $(...)
+# syntax for process substitution is <(...)
+# >(...) will reverse the way it works
+
+words=$(grep d /usr/share/dict/words) # this will be read completely into memory
+# our RAM will hold this for us
+
+i=0
+for word  in $words ; do
+	# echo "$word"
+	((i++))
+done
+# if we are not quoting in a for loop and that makes it work, then it is
+# probably wrong, because we are using word splitting here in bash
+
+echo "found $i words"
+
+# if we find not quoting our variable expansion makes it work
+# then we are probably doing it wrong
+i=0
+# Since you double quoted this, it will not word split, and the loop will only run once.
+for word  in "$words" ; do
+	# echo "$word"
+	((i++))
+done
+echo "found $i words" # printed all words but said only 1 word
+# the word just happened to be one long word including new lines in it
+
+# HERE STRING
+# they let us pipe data into a command that already exists in a variable
+i=0
+while read -r word; do
+	# echo "$word"
+	((i++))
+done <<< "$words"
+echo "found $i words"
+# but we can do the above better
+#
+# we can stream that data into a while loop rather than storing all of the data
+# into a variable
+
+i=0
+grep d /usr/share/dict/words | while read -r word; do
+	# echo "$word"
+	# Modification of i is local (to subshell caused by pipeline).
+	((i++))
+done
+echo "found $i words" # says found 0 words
+# anything to the right of a pipe is executed in a subshell
+
+## Now, we can use process substitution
+
+echo "$(uname)"
+echo <(uname) # will be a file descriptor
+cat <(uname)
+
+i=0
+while read -r word; do
+	echo "$word"
+	((i++))
+done < <(grep d /usr/share/dict/words) # this will be done in a streaming fashion
+# the first < tells that we are reading from a file
+# <(...) stores in a temporary file ?
+echo "found $i words"
+
+# But one caveat here is that, since we are not waiting for grep to finish
+# we don't have the exit code of grep
+# i=0
+# while read -r word; do
+# 	echo "$word"
+# 	((i++))
+# done < <(grep d /usr/share/dict/word) # no such file
+# echo "found $i words"
+
+# when we are using process substitution, it can mask the error code or the return
+# code
