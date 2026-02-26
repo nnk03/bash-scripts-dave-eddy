@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "$PATH" | cut -d : -f 1
+
+echo
+echo "$PATH" | cut -d : -f 1- | tr : '\n'
+
+echo
+echo "$PATH" | tr : '\n' 

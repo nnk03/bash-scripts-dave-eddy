@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# cat /etc/passwd | cut -d : -f 1
+# # we can use without cat
+# cut -d : -f 1 /etc/passwd 
+
+# not making any changes to the file
+# Just changing what prints to the screen
+cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's/neeraj/buddy/'
+cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's/n..ra./buddy/' # regex

@@ -1,0 +1,6 @@
+ID,Task_Name,Assigned_To,Status
+101,"Fix bug, priority: high",Alice,Completed
+102,"Update docs, including 'Setup' section",Bob,In Progress
+103,"Meeting: Q1, Q2, and Q3 Planning",Charlie,Pending
+104,"Refactor CSS, specifically 'main.css'",Dana,Ongoing
+105,"Backup database, then 'reboot'",Alice,Completed
