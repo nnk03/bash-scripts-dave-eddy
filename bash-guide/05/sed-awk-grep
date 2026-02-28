@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# cat /etc/passwd | cut -d : -f 1
+# # we can use without cat
+# cut -d : -f 1 /etc/passwd 
+
+# SED command
+# # not making any changes to the file
+# # Just changing what prints to the screen
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's/neeraj/buddy/'
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's/n..ra./buddy/' # regex
+# # -e for expression
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed -e 's/n..ra./buddy/' -e 's/zsh/fish/'
+#
+# # we can use # character or | character as '/' if the expression itself has a /
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed -e 's/n..ra./buddy/' -e 's#/bin/zsh#/buddy/fish#'
+#
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's|/bin/zsh|/buddy/fish|' # regex
+#
+# # Can we put any character in place of '/' ?
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 's%/bin/zsh%/buddy/fish%' # regex
+# # here I've used 'g' as '/'
+# cat /etc/passwd | grep neeraj | cut -d : -f 1,7 | sed 'sg/bin/zshg/buddy/fishg' # regex
+
+# AWK command
+# learn awk
+# awk is its own language
+# by default awk breaks it on whitespace
+head /etc/passwd | awk ' { print $1 } '
+echo
+echo "with delimiter :"
+echo
+head /etc/passwd | awk -F: ' { print $1 $7 } ' # notice no space in the output
+echo
+head /etc/passwd | awk -F: ' { print $1, $7 } ' # comma implies delimited by space ?
+
+
+echo
+head /etc/passwd \
+	| awk -F: ' { printf("%s has shell %s\n", $1, $7 ); } '
+
+echo
+grep neeraj /etc/passwd \
+	| awk -F: ' { printf("%s has shell %s\n", $1, $7 ); } '
+
+# or we can put a condition inside awk
+echo
+cat /etc/passwd | awk -F: '$1 == "neeraj" { print $1, $7 }'
+
+echo
+< /etc/passwd  awk -F: '$1 == "neeraj" { print $1, $7 }'
+
+echo
+# data has to be sorted first for uniq ?
+< /etc/passwd  awk -F: '{ print $7 }' | sort | uniq
+
+echo
+< /etc/passwd  awk -F: '{ print $7 }' | sort | uniq -c
+
+echo
+< /etc/passwd  awk -F: '{ print $7 }' | sort | uniq -c \
+	| awk '{ printf("%s occurred %s times\n", $2, $1 ); }'
+
+echo
+# Consider using 'grep -c' instead of 'grep|wc -l'.
+grep dave /usr/share/dict/words | wc -l
+grep -c dave /usr/share/dict/words
+
+echo
+grep dave /usr/share/dict/words | wc
+# wc gives lines     words      characters
+# wc -l for lines
+# wc -w for words
+# wc -c for characters # not unicode aware
+
+
+

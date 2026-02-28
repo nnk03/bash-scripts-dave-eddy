@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+echo
+find .
+
+echo
+find . -type f # regular files
+
+echo
+find . -type d # directories
+
+echo
+find /var/empty -type d
+
+echo
+# find /usr/share
+
+echo
+# for symlinks
+find /usr/share -type l | wc -l
+
+echo
+# notice single quotes, we don't want bash to expand the *
+find /usr/share -type f -name '*.txt' | wc -l
+
+echo
+# slighly dangerous with exec if you pass rm by mistake, so be careful!
+# find /usr/share -type f -name '*.txt' -exec echo hi i found a file {} yay ';'
+
+echo
+# if we want to batch process it, pipe it to xargs
+# find /usr/share -type f -name '*.txt' | head | xargs echo hi
+
+echo
+# this separates by null bytes, because file names can have new lines
+# and that can be weird !
+find /usr/share -type f -name '*.txt' -print0 | xargs -0
+
+echo
+# ORDER MATTERS for FIND command
+# put -depth 1 somewhere
+# find /usr/share -type f -name '*.txt'

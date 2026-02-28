@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+time echo hi
+# real user system
+#
+# real : how long it actually took in wall clock
+# user : how much time spent in user space
+# sys : how muct time spent in system / kernel space
+
+# what does `time ls | grep d` do ?
+# `time` is also builtin into the shell
+
+# time sudo whoami
+# sudo time whoami
+# both give different outputs
