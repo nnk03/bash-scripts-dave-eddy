@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# if $1 is not set or is an emptyr string ?
+# name=${1:-Steve} # setting a default value
+# name=${1:-$USER} # setting a default value
+#
+# note that this takes in empty string as well
+# name=${1?} # argument is required now
+# name=${1?'You must suply a name'} # argument is required now
+
+# now empty string is not allowed
+name=${1:?'You must suply a name'} # argument is required now
+
+echo "hello $name!"
+echo 'done'

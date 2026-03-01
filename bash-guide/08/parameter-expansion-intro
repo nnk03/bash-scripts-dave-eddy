@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+s="$USER"
+echo $s
+echo "$s"
+
+echo "${s}"
+echo "${#s}" # length of the string
+
+echo
+echo "${s^}" # capitalize the first letter
+echo "${s^^}" # capitalize the whole string
+echo "${s^^a}" # capitalize only a
+echo "${s^^A}" # capitalize only A
+
+echo
+echo "${s^e}" # capitalize only the first letter if it is a 'e' ?
+echo "${s^n}"
+
+echo
+echo "${s^^ne}" # doesn't work the way we expect
+echo "${s^^[ne]}" # we need to specify the pattern
+
+
+echo
+echo
+s="${s^^}"
+echo "$s"
+echo "${s,}"
+echo "${s,,}"
+echo "${s,,N}"
+echo "${s,,[NA]}"
+
+# , is to lower
+# ^ is to upper

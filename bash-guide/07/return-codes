@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+my-func() {
+	# echo 'YSAP'
+	echo 'this goes to stdout' >&1
+	echo 'this goes to stderr' >&2
+	return 45
+	# Can only return 0-255. Other data should be written to stdout.
+	# return 256
+}
+
+# uname
+# echo $?
+
+# var=$(uname)
+# code=$?
+
+# echo "output = $var, code = $code"
+
+var=$(my-func)
+code=$?
+echo "output = $var, code = $code"
+
+var=$(my-func >/dev/null)
+echo "output = $var, code = $code"
+
+var=$(my-func 1>/dev/null) # same as previous
+echo "output = $var, code = $code"
+
+var=$(my-func 2>/dev/null)
+echo "output = $var, code = $code"
+
+var=$(my-func 2>&1)
+echo "output = $var, code = $code"
+
+var=$(my-func >/dev/null 2>&1)
+echo "output = $var, code = $code"
+
+var=$(my-func 2>&1 >/dev/null)
+echo "output = $var, code = $code"

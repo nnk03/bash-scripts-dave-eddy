@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+arr=(foo bar baz)
+
+echo "arr is ${arr[*]}"
+
+printf '%s\n' hello how are you
+
+echo
+printf '%s\n' "${arr[@]}"
+
+echo
+printf '%s\n' "${arr[@]:1}"
+
+echo
+printf '%s\n' "${arr[@]:0:2}"
+
+
+echo
+printf '%s\n' "${arr[@]//a/o}"
+
+echo
+printf '%s\n' "${arr[@]%z}"
+
+echo
+printf '%s\n' "${arr[@]#b}"
+
+echo
+(IFS=_; echo "${arr[*]}") # for stringifying
+
+echo
+(IFS=_; echo ${arr[*]}) # unexpected, so quote our expansion

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+path='/home/neeraj/response.md.foo.txt'
+
+echo "$path"
+
+echo "$path" | tr a o
+
+echo "${path/a/o}" # it only does it once
+echo "${path/o/a}" # it only does it once
+
+echo "${path//o/a}"
+
+dirname "$path" # gives the directory name
+basename "$path"
+
+# but the above 2 are not bash builtins, they are external commands
+# type -a dirname
+# type -a basename
+#
+
+# # tells from the beginning of the line
+# */ tells match anything up until '/'
+echo "${path#*/}" # but only does it till the first /
+
+# we get basename
+echo "${path##*/}" # match until the last /
+# # says start from left to right
+#
+#
+
+# % starts from right to left
+# %% makes it greedy
+echo "${path%/*}"
+echo "${path%%/*}" # will be an empty string
+
+echo "${path//[af]/ao}" # replace either a or f with 'ao' ?
+
+echo "${path//[adnf]/__&__}" # & represents the thing that matched
+echo "${path//[adnf]/__\&__}" # for a literal &
+
+echo
+s="$USER"
+
+echo "${s}"
+echo "${s:0}"
+echo "${s:1}"
+echo "${s:2}"
+echo "${s:3}" # substring starting at the 3rd character
+
+echo "${s:3:2}" # substring starting at the 3rd character and 2 characters
+
+# be careful, ':-' takes precedence
+echo "${s:-1}"
+
+# hence put a space
+echo "${s: -1}"
+echo "${s: -2}"
+echo "${s: -2}"
+echo "${s: -5:3}"
+
+echo "${s:1:-1}" # start from 1 and go till -1 excluding -1 ?
+
+

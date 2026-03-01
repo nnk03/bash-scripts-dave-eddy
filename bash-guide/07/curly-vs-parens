@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+. ./lib/curly-vs-parens-greetings || exit 1
+
+name='buddy'
+echo "before name : $name"
+greet dave
+echo "after name : $name"
+
+echo
+name='buddy'
+echo "before name : $name"
+(greet dave)
+echo "after name : $name"
+
+echo
+name='buddy'
+echo "before name : $name"
+{ greet dave | tr a o; } | nl
+echo "after name : $name"

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+source ./lib/greetings
+# . ./lib/greetings # dot performs the same thing
+# . ./lib/greetingz # dot performs the same thing
+# in zsh, dot and source are slightly different ?
+#
+# dot is what we will see in POSIX shell scripts
+# dot is more portable
+
+# if ! . ./lib/greetingz; then
+# 	echo "greetingz not found"
+# 	exit 1
+# fi
+#
+# or one line
+#
+# . ./lib/greetingz || exit 1
+# . ./lib/greetings || exit 1
+#
+# greet dave
+# greet john
+# goodbye buddy
+
+libdirs=./lib
+
+. -p "$libdirs" greetings || exit 1
+greet dave
+greet john
+goodbye buddy
