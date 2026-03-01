@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# shelloptions
+#
+# shopt gives all the shell options
+# shopt | grep extglob
+#
+# shopt -s extglob # to set it
+# shopt -u extglob # to unset it
+#
+
+# if there are any error with event not found ?
+# that is going to be history expansion ?
+# to turn it off, set +H
+# to turn it on, set -H
+#
+# if we have problems with ! that we are going to be using
+#
+
+# ls -1 files/*.txt
+# ls -1 files/!(*.txt) # for some reason, not working in script, but working when used in bash ?
+
+
+
+ls -1 files/+(foo|bar).txt # + means one or many times
+# similar to regex
+#
+# +(thing) --> /(thing)+/
+# ?(thing) --> /(thing)?/
+# *(thing) --> /(thing)*/
+#
+# @(thing) --> no analogue in regex
+#
+
+ls -1 files/@(foo).* # won't display foofoo.txt
+# but what does @ exactly do ?
+ls -1 files/+(foo).* # will display foofoo.txt

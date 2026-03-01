@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+mkdir -p files
+ls files
+
+touch files/{foo,bar,baz}.{txt,jpg}
+
+ls -1 files # separates file names with new-lines (be careful, file-names can have newlines)
+
+echo files/*
+
+echo
+printf '<%s>\n' files/*
+
+echo
+ls -1 files/ba?.txt # ? means any single character ?
+
+echo
+ls -1 files/ba[abcrz].txt
+
+echo
+ls -1 files/ba[abcrz].*

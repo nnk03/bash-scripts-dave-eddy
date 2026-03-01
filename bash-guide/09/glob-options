@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+shopt | grep glob
+mkdir -p empty
+
+ls empty/* # will fail as there is nothign to expand and ls received 'empty/*'
+
+printf '<%s>\n' ls empty/*
+printf '<%s>\n' ls files/*
+
+# null glob is off by default ?
+
+shopt -s nullglob
+printf '<%s>\n' empty/*
+
+arr=(empty/*)
+echo "${#arr[@]}" # will be 0
+
+# be mindful of the below
+# since empty/* is empty
+# ls empty/* will be simply `ls` and that shows the current directory contents
+# so only use nullglob when really needed
+
+shopt -u nullglob
+arr=(empty/*)
+echo "${#arr[@]}" # will be 1
+mkdir -p empty-1
+
+touch empty-1/.hidden-file
+echo empty-1/*
+
+shopt -s dotglob
+echo empty-1/*
+ls empty-1/*
+
+shopt -u dotglob
+
+echo empty-1/* empty-1/.* # similar behaviour
+
+# so we want to set nullglob but unset dotglob
+echo
+shopt -u dotglob
+shopt -s nullglob
+arr=(empty-1/* empty-1/.*)
+echo "${arr[*]}"
+
+# be careful, because if we have both dotglob and nullglob 
+shopt -s dotglob
+arr=(empty-1/* empty-1/.*)
+echo "${arr[*]}" # we will get duplicates
+
+shopt -s globstar # to recurse ?
+
+# to get the same behaviour as `find .`
+echo
+printf '%s\n' **
+
+echo
+txt=( ./**/*.txt )
+echo "${#txt[@]}"
+echo "${txt[@]}"
+
+# same as 
+find . -type f -name '*.txt'
+find . -type f -name '*.txt' | wc -l
