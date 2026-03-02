@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+printf 'hello how are you\n'
+
+s='hello world'
+echo $s
+
+printf "$s\n" # DO NOT DO THIS
+# we don't want to ever give user specified argument to printf
+
+printf 'my string is (%s)\n' "$s"
+
+printf '%s     %s\n' hello world
+printf '%5s %5s\n' hello world
+printf '%10s %10s\n' hello world # padding the argument and right justify
+printf '%5s %5s\n' a b
+printf '%-5s %-5s\n' a b # to left justify
+printf '<%-5s %-5s>\n' a b # to left justify
+printf '<%5s %5s>\n' a b # to left justify
+
+# amount that the output gets spaced out is taken as argument
+printf '<%*s>\n' 10 hello # * is special
+printf '<%-*s>\n' 20 hello # * is special
+
+echo
+printf '%d\n' 55
+printf '%5d\n' 55
+printf '%-5d\n' 55
+printf '%05d\n' 55 # pad with 0's
+
+# printf '%05d\n' hello # error message
+# and return error code
+
+printf '%d\n' 06
+# printf '%d\n' 09 # error
+printf '%d\n' 0123 # error
+printf '%d\n' 0x0a # error
+printf '%d\n' 0xff # error
+
+printf '%q\n' 'foobar'
+printf '%q\n' 'foo$bar' # shell safe way ?
+
+printf '%b\n' '\xff'
+printf '%b\n' '\xff' | xxd
+
+# bash can generate binary
+
+
+echo
+printf 'hello world%b\n' '\x0a'
+printf 'hello world%b\n' '\x0a' | xxd
+
+printf 'hello %s\n' dave
+# To store it in a variable
+printf -v var 'hello %s\n' # bash specific
+
+echo $var

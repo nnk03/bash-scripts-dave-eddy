@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+echo {1,2}
+echo
+# 1 to 20 inclusive
+echo {1..20} # specific to numbers
+
+echo
+echo {10..4}
+
+echo
+echo {1..100..5} # step with 5
+
+echo
+seq 1 20 # separated by new lines
+echo
+seq 5
+
+# in bash we have to give starting and ending
+#
+
+echo {1..50..10}
+# in seq order is a bit different
+echo
+seq 1 10 50
+
+

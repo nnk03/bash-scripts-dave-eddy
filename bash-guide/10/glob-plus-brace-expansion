@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+mkdir -p files
+touch files/{foo,bar,baz}.{txt,jpg}
+
+echo
+printf '<%s>\n' files/*
+
+echo
+printf '<%s>\n' files/{foo,bar,baz}.{txt,jpg}
+
+echo
+printf '<%s>\n' files/{foo,bar,baz}.{txt,jpg,mov}
+# printf '<%s>\n' files/*.mov # glob will fail if there is no such file
+#
+
+# brace-expansion just looks at the strings
+# Globbing looks at the filesystem
+#
+
+echo
+ls files/*.{txt,jpg}
+
+echo
+ls files/*.{txt,mov}

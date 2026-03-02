@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+for i in $(seq 1 10); do # working without quotes ?, then it is probably wrong
+	echo "$i"
+done
+
+echo
+# Since you double quoted this, it will not word split, and the loop will only run once.
+for i in "$(seq 1 10)"; do
+	echo "$i"
+done
+
+echo
+for i in {1..10}; do
+	echo "$i"
+done
+
+
+echo
+for i in foo {1..10} bar {1..4..2}; do
+	echo "$i"
+done
+
+max=4
+for i in {1..$max}; do # won't work
+	echo "$i"
+done
+
+echo
+for ((i = 0; i <=max; ++i)); do
+	echo "$i"
+done

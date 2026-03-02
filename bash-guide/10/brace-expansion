@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo {Hello,world} # goes as multiple arguments to printf
+
+echo
+printf '<%s>\n' {hello,world,foo,bar,baz}
+
+echo
+printf '<%s>\n' "{hello,world,foo,bar,baz}"
+
+
