@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+date
+
+date +%s # different than printf specifier
+# check man strftime
+
+datefmt='%Y/%m/%d %H:%M:%S'
+echo $datefmt
+
+date +"$datefmt" # only some versions of date support this ?
+
+printf "the date is %($datefmt)T\n"
+# it's going to try to interpret $USER as time
+printf "the date is %($datefmt)T name=%s\n" "$USER"
+
+printf "the date is %($datefmt)T name=%s\n" -1 "$USER" # -1 represents current time and date
+printf "the date is %($datefmt)T name=%s\n" -2 "$USER" # -2 represents the shell was started
+printf "the date is %($datefmt)T name=%s\n" 0 "$USER" # 0 and above represents epoch time ?
+printf "the date is %($datefmt)T name=%s\n" 1000000000 "$USER" # 0 and above represents epoch time ?
+
+
+printf '%(%s)T\n' -1
+printf '%(%s)T\n' -2
+echo $SECONDS # number of seconds the shell has been running
+
+echo $EPOCHSECONDS
+echo $EPOCHREALTIME # with microseconds resolutions

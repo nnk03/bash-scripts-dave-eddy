@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# bash has its own regex engine ?
+
+# re='^(dave|joe)$'
+re='^(d|j).*$'
+input='dave'
+
+if [[ $input =~ $re ]]; then
+	echo match
+
+	printf '%s\n' "${BASH_REMATCH[@]}"
+
+	# full string is the first ( 0th match )
+	# 1st is the 1st capture group
+else
+	echo no match
+fi
+
+# xargs echo is a quick trick to remove white spaces ?
