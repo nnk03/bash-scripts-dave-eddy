@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+my-func() {
+	echo "DEBUG : running : $BASH_COMMAND"
+}
+
+trap my-func debug
+
+echo script starting
+echo ...
+echo script done
+
+exit 1
+
+trap my-func SIGINFO || exit 4 # some operating system might not have sig info
+
+# trap my-func SIGINT
+# while true; do
+# 	sleep 1
+# 	echo running
+# done

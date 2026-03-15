@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# help trap
+
+cleanup(){
+	echo cleanup function running
+	# exit code will be the same as the script unless we override it
+	#
+	# exit 2
+}
+
+# we can give multiple multiple signals
+trap cleanup exit
+
+echo script starting
+echo ...
+echo script done
+
+exit 1

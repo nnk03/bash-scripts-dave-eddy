@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+echo "Hello world"
+echo 'hello $USER'
+echo "hello $USER"
+
+echo "hello\tworld"
+echo -e "hello\tworld"
+
+echo $'hello\t$USER'
+echo $"hello\t$USER"
+
+var=$'hello\tworld'
+echo $var
+echo "$var"
+
+echo $'foo\nbar'
+echo $'foasdfasdfo\vbar'
+echo $'foo\b\bbar'
+echo $'foo\b\bbar' | xxd
+
+arr=( foo bar )
+( IFS=$' \t\n' echo "${arr[*]}" ) # ???
+tab=$'\t'
+echo "hello$tab"
+echo "hello$tabworld" # doesn't work as 'tabworld' is not a variable
+echo "hello${tab}world"
+
